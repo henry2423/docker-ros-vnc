@@ -1,32 +1,37 @@
-# Docker container images with ROS-Kinetic, Gazebo 8, Xfce4 VNC Desktop and Tensorflow
+# Docker container images with ROS, Gazebo, Xfce4 VNC Desktop and Tensorflow
 
 This repository developed from ConSol/docker-headless-vnc-container, with provide the headless VNC environments for docker container
 
 ## Current Image Build:
-* `henry2423/docker-ros-vnc/`: __Ubuntu 16.04__
+* `henry2423/docker-ros-vnc:kinetic` : __Ubuntu 16.04 with `ROS Kinetic + Gazebo 8`__
 
-  [![](https://images.microbadger.com/badges/version/henry2423/docker-ros-vnc.svg)](https://hub.docker.com/r/henry2423/docker-ros-vnc/) [![](https://images.microbadger.com/badges/image/henry2423/docker-ros-vnc.svg)](https://microbadger.com/images/henry2423/docker-ros-vnc)
+  [![](https://images.microbadger.com/badges/version/henry2423/docker-ros-vnc:kinetic.svg)](https://hub.docker.com/r/henry2423/docker-ros-vnc/) [![](https://images.microbadger.com/badges/image/henry2423/docker-ros-vnc:kinetic.svg)](https://microbadger.com/images/henry2423/docker-ros-vnc:kinetic)
+
+* `henry2423/docker-ros-vnc:lunar` : __Ubuntu 16.04 with `ROS Lunar + Gazebo 9`__
+
+  [![](https://images.microbadger.com/badges/version/henry2423/docker-ros-vnc:lunar.svg)](https://hub.docker.com/r/henry2423/docker-ros-vnc/) 
+  [![](https://images.microbadger.com/badges/image/henry2423/docker-ros-vnc:lunar.svg)](https://microbadger.com/images/henry2423/docker-ros-vnc:lunar)
 
 ## Spec
-This is a Docker environmentalist equipped with ROS-Kinetic, Gazebo8, xfce-vnc, no-vnc(http vnc service) and TensorFlow-gpu.
+This is a Docker environmentalist equipped with ROS, Gazebo, xfce-vnc, no-vnc(http vnc service) and TensorFlow-gpu.
 The container is developed under xfce-docker-container source and add the ROS, TensorFlow GPU environment on top of it, to provide a essential kit for anyone who develop with robotic and deep learning.
 
 ## Usage
 - Run command with mapping to local port `5901` (vnc protocol) and `6901` (vnc web access):
 
-      docker run -d -p 5901:5901 -p 6901:6901 henry2423/docker-ros-vnc
+      docker run -d -p 5901:5901 -p 6901:6901 henry2423/docker-ros-vnc:kinetic
 
 - If you want to get into the container use interactive mode `-it` and `bash`
       
-      docker run -it -p 5901:5901 -p 6901:6901 henry2423/docker-ros-vnc bash
+      docker run -it -p 5901:5901 -p 6901:6901 henry2423/docker-ros-vnc:kinetic bash
 
 - If you want to connect to tensorboard, run command with mapping to local port `6006`:
       
-      docker run -it -p 5901:5901 -p 6901:6901 -p 6006:6006 henry2423/docker-ros-vnc
+      docker run -it -p 5901:5901 -p 6901cu:6901 -p 6006:6006 henry2423/docker-ros-vnc:kinetic
 
 - Build an image from scratch:
 
-      docker build -t henry2423/docker-ros-vnc docker-ros-vnc
+      docker build -t henry2423/docker-ros-vnc:kinetic docker-ros-vnc
 
 ## Connect & Control
 If the container runs up, you can connect to the container throught the following 
@@ -41,12 +46,12 @@ If the container runs up, you can connect to the container throught the followin
 #### 1.1) Using root (user id `0`)
 Add the `--user` flag to your docker run command:
 
-    docker run -it --user root -p 6901:6901 henry2423/docker-ros-vnc
+    docker run -it --user root -p 6901:6901 henry2423/docker-ros-vnc:kinetic
 
 #### 1.2) Using user and group id of host system
 Add the `--user` flag to your docker run command:
 
-    docker run -it -p 6901:6901 --user $(id -u):$(id -g) henry2423/docker-ros-vnc
+    docker run -it -p 6901:6901 --user $(id -u):$(id -g) henry2423/docker-ros-vnc:kinetic
 
 ### 2) Override VNC and Container environment variables
 The following VNC environment variables can be overwritten at the `docker run` phase to customize your desktop environment inside the container:
@@ -60,13 +65,13 @@ The following VNC environment variables can be overwritten at the `docker run` p
 Simply overwrite the value of the environment variable `VNC_PW`. For example in
 the docker run command:
 
-    docker run -it -p 5901:5901 -p 6901:6901 -e VNC_PW=vncpassword henry2423/docker-ros-vnc
+    docker run -it -p 5901:5901 -p 6901:6901 -e VNC_PW=vncpassword henry2423/docker-ros-vnc:kinetic
 
 #### 2.2) Example: Override the VNC resolution
 Simply overwrite the value of the environment variable `VNC_RESOLUTION`. For example in
 the docker run command:
 
-    docker run -it -p 5901:5901 -p 6901:6901 -e VNC_RESOLUTION=800x600 henry2423/docker-ros-vnc
+    docker run -it -p 5901:5901 -p 6901:6901 -e VNC_RESOLUTION=800x600 henry2423/docker-ros-vnc:kinetic
 
 ## Contributors
 
