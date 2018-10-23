@@ -28,7 +28,7 @@ The container is developed under xfce-docker-container source and add the ROS, T
 
       docker build -t henry2423/docker-ros-vnc docker-ros-vnc
 
-# Connect & Control
+## Connect & Control
 If the container runs up, you can connect to the container throught the following 
 * connect via __VNC viewer `localhost:5901`__, default password: `vncpassword`
 * connect via __noVNC HTML5 full client__: [`http://localhost:6901/vnc.html`](http://localhost:6901/vnc.html), default password: `vncpassword` 
