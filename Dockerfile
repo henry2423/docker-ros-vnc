@@ -101,31 +101,12 @@ RUN sh -c 'echo "deb http://packages.ros.org/ros/ubuntu xenial main" > \
     apt-get install -y python-rosinstall && \
     rosdep init
 
-# RUN cd /tmp/ && \
-#     wget http://kernel.ubuntu.com/~kernel-ppa/mainline/v4.4-wily/linux-headers-4.4.0-040400_4.4.0-040400.201601101930_all.deb && \
-#     wget http://kernel.ubuntu.com/~kernel-ppa/mainline/v4.4-wily/linux-headers-4.4.0-040400-generic_4.4.0-040400.201601101930_amd64.deb && \
-#     wget http://kernel.ubuntu.com/~kernel-ppa/mainline/v4.4-wily/linux-image-4.4.0-040400-generic_4.4.0-040400.201601101930_amd64.deb && \
-#     dpkg -i *.deb
-
-# Install Gazebo and Turtlebot
-RUN apt-get install -y linux-headers-4.15.0-36-generic linux-image-4.15.0-36-generic apt-utils software-properties-common && \
-    ln -s /usr/src/linux-headers-4.15.0-36-generic /lib/modules/4.15.0-36-generic
-
-RUN apt-key adv --keyserver keys.gnupg.net --recv-key C8B3A55A6F3EFCDE || apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-key C8B3A55A6F3EFCDE
-RUN add-apt-repository "deb http://realsense-hw-public.s3.amazonaws.com/Debian/apt-repo xenial main" -u && \
-    rm -f /etc/apt/sources.list.d/realsense-public.list && \
+# Install Gazebo
+RUN sh -c 'echo "deb http://packages.osrfoundation.org/gazebo/ubuntu-stable `lsb_release -cs` main" > /etc/apt/sources.list.d/gazebo-stable.list' && \
+    wget http://packages.osrfoundation.org/gazebo.key -O - | sudo apt-key add - && \
     apt-get update && \
-    apt-get install -y librealsense2-dkms && \
-    apt-get install -y librealsense2-utils
-RUN apt-get install -y ros-kinetic-librealsense
-RUN apt-key adv --keyserver hkp://ha.pool.sks-keyservers.net:80 --recv-key 421C365BD9FF1F717815A3895523BAEEB01FA116 && \
-    apt-get update && apt-get install -y ros-kinetic-turtlebot && \
-    ros-kinetic-turtlebot-apps && \
-    ros-kinetic-turtlebot-interactions && \
-    ros-kinetic-turtlebot-simulator && \
-    ros-kinetic-kobuki-ftdi && \
-    ros-kinetic-ar-track-alvar-msgs
-RUN apt-get install -y ros-kinetic-turtlebot-gazebo
+    apt-get install -y gazebo8 libgazebo8-dev && \
+    apt-get install -y ros-kinetic-gazebo8-ros-pkgs ros-kinetic-gazebo8-ros-control
 
 # Setup ROS
 USER $USER
