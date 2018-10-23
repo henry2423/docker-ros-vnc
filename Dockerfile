@@ -97,7 +97,7 @@ RUN apt-get update && \
 RUN sh -c 'echo "deb http://packages.ros.org/ros/ubuntu xenial main" > \
                 /etc/apt/sources.list.d/ros-latest.list' && \
     apt-key adv --keyserver hkp://ha.pool.sks-keyservers.net:80 --recv-key 421C365BD9FF1F717815A3895523BAEEB01FA116 && \
-    apt-get update && apt-get install -y ros-kinetic-desktop && \
+    apt-get update && apt-get install -y ros-lunar-desktop && \
     apt-get install -y python-rosinstall && \
     rosdep init
 
@@ -105,13 +105,13 @@ RUN sh -c 'echo "deb http://packages.ros.org/ros/ubuntu xenial main" > \
 RUN sh -c 'echo "deb http://packages.osrfoundation.org/gazebo/ubuntu-stable `lsb_release -cs` main" > /etc/apt/sources.list.d/gazebo-stable.list' && \
     wget http://packages.osrfoundation.org/gazebo.key -O - | sudo apt-key add - && \
     apt-get update && \
-    apt-get install -y gazebo8 libgazebo8-dev && \
-    apt-get install -y ros-kinetic-gazebo8-ros-pkgs ros-kinetic-gazebo8-ros-control
+    apt-get install -y gazebo9 libgazebo9-dev && \
+    apt-get install -y ros-lunar-gazebo9-ros-pkgs ros-lunar-gazebo9-ros-control
 
 # Setup ROS
 USER $USER
 RUN rosdep fix-permissions && rosdep update
-RUN echo "source /opt/ros/kinetic/setup.bash" >> ~/.bashrc
+RUN echo "source /opt/ros/lunar/setup.bash" >> ~/.bashrc
 RUN /bin/bash -c "source ~/.bashrc"
 
 ###Tensorflow Installation
