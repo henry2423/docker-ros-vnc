@@ -1,5 +1,5 @@
-# This Dockerfile is used to build an ROS + VNC + Tensorflow image based on Ubuntu 16.04
-FROM nvidia/cuda:9.0-cudnn7-devel-ubuntu16.04
+# This Dockerfile is used to build an ROS + VNC + Tensorflow image based on Ubuntu 18.04
+FROM nvidia/cuda:10.0-cudnn7-devel-ubuntu18.04
 
 MAINTAINER Henry Huang "https://github.com/henry2423"
 ENV REFRESHED_AT 2018-10-23
@@ -94,10 +94,9 @@ RUN apt-get update && \
     git
 
 # Install ROS
-RUN sh -c 'echo "deb http://packages.ros.org/ros/ubuntu xenial main" > \
-                /etc/apt/sources.list.d/ros-latest.list' && \
+RUN sh -c 'echo "deb http://packages.ros.org/ros/ubuntu `lsb_release -cs` main" > /etc/apt/sources.list.d/ros-latest.list' && \
     apt-key adv --keyserver hkp://ha.pool.sks-keyservers.net:80 --recv-key 421C365BD9FF1F717815A3895523BAEEB01FA116 && \
-    apt-get update && apt-get install -y ros-kinetic-desktop && \
+    apt-get update && apt-get install -y ros-melodic-desktop && \
     apt-get install -y python-rosinstall && \
     rosdep init
 
@@ -105,13 +104,13 @@ RUN sh -c 'echo "deb http://packages.ros.org/ros/ubuntu xenial main" > \
 RUN sh -c 'echo "deb http://packages.osrfoundation.org/gazebo/ubuntu-stable `lsb_release -cs` main" > /etc/apt/sources.list.d/gazebo-stable.list' && \
     wget http://packages.osrfoundation.org/gazebo.key -O - | sudo apt-key add - && \
     apt-get update && \
-    apt-get install -y gazebo8 libgazebo8-dev && \
-    apt-get install -y ros-kinetic-gazebo8-ros-pkgs ros-kinetic-gazebo8-ros-control
+    apt-get install -y gazebo9 libgazebo9-dev && \
+    apt-get install -y ros-melodic-gazebo-ros-pkgs ros-melodic-gazebo-ros-control
 
 # Setup ROS
 USER $USER
 RUN rosdep fix-permissions && rosdep update
-RUN echo "source /opt/ros/kinetic/setup.bash" >> ~/.bashrc
+RUN echo "source /opt/ros/melodic/setup.bash" >> ~/.bashrc
 RUN /bin/bash -c "source ~/.bashrc"
 
 ###Tensorflow Installation
