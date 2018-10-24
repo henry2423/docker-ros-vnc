@@ -31,10 +31,10 @@ RUN sudo apt-get install -y apt-transport-https && \
     sudo apt-get install -y code
 
 ### VNC Installation
-LABEL io.k8s.description="Headless VNC Container with Xfce window manager, firefox and chromium" \
-      io.k8s.display-name="Headless VNC Container based on Ubuntu" \
-      io.openshift.expose-services="6901:http,5901:xvnc" \
-      io.openshift.tags="vnc, ubuntu, xfce" \
+LABEL io.k8s.description="VNC Container with ROS with Xfce window manager" \
+      io.k8s.display-name="VNC Container with ROS based on Ubuntu" \
+      io.openshift.expose-services="6901:http,5901:xvnc,6006:tnesorboard" \
+      io.openshift.tags="vnc, ros, gazebo, tensorflow, ubuntu, xfce" \
       io.openshift.non-scalable=true
 
 ## Connection ports for controlling the UI:
