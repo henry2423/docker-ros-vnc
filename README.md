@@ -30,7 +30,7 @@ The container is developed under xfce-docker-container source and add the ROS, T
 
 - If you want to connect to tensorboard, run command with mapping to local port `6006`:
       
-      docker run -it -p 5901:5901 -p 6901cu:6901 -p 6006:6006 henry2423/ros-vnc-ubuntu:kinetic
+      docker run -it -p 5901:5901 -p 6901:6901 -p 6006:6006 henry2423/ros-vnc-ubuntu:kinetic
 
 - Build an image from scratch:
 
@@ -78,4 +78,4 @@ the docker run command:
 
 ## Contributors
 
-* [ConSol](https://github.com/ConSol/docker-headless-vnc-container) - developed the ConSol/docker-headless-vnc-container
+* [ConSol/docker-headless-vnc-container](https://github.com/ConSol/docker-headless-vnc-container) - developed the ConSol/docker-headless-vnc-container
