@@ -1,8 +1,9 @@
 # This Dockerfile is used to build an ROS + VNC + Tensorflow image based on Ubuntu 16.04
 FROM nvidia/cuda:9.0-cudnn7-devel-ubuntu16.04
 
+LABEL maintainer "Henry Huang"
 MAINTAINER Henry Huang "https://github.com/henry2423"
-ENV REFRESHED_AT 2018-10-23
+ENV REFRESHED_AT 2018-10-29
 
 # Install sudo
 RUN apt-get update && \
