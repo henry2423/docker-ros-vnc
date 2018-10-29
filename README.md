@@ -49,12 +49,12 @@ If the container runs up, you can connect to the container throught the followin
 #### 1.1) Using root (user id `0`)
 Add the `--user` flag to your docker run command:
 
-    docker run -it --user root -p 6901:6901 henry2423/ros-vnc-ubuntu:kinetic
+    docker run -it --user root -p 5901:5901 henry2423/ros-vnc-ubuntu:kinetic
 
 #### 1.2) Using user and group id of host system
-Add the `--user` flag to your docker run command:
+Add the `--user` flag to your docker run command (Note: uid and gui of host system may not able to map with container, which is 1000:1000. If that is the case, check with 3.1):
 
-    docker run -it -p 6901:6901 --user $(id -u):$(id -g) henry2423/ros-vnc-ubuntu:kinetic
+    docker run -it -p 5901:5901 --user $(id -u):$(id -g) henry2423/ros-vnc-ubuntu:kinetic
 
 ### 2) Override VNC and Container environment variables
 The following VNC environment variables can be overwritten at the `docker run` phase to customize your desktop environment inside the container:
@@ -75,6 +75,17 @@ Simply overwrite the value of the environment variable `VNC_RESOLUTION`. For exa
 the docker run command:
 
     docker run -it -p 5901:5901 -p 6901:6901 -e VNC_RESOLUTION=800x600 henry2423/ros-vnc-ubuntu:kinetic
+
+### 3.1) Mounting local directory to conatiner
+You should run with following environment variable in order to mapping same UID, GID with container, and retrieve R/W permission in container:
+
+      docker run -it -p 5901:5901 \
+        --user $(id -u):$(id -g) \
+        --env "UID=`id -u $who`" \
+        --env "GID=`id -g $who`" \
+        --volume /home/ros/Desktop:/home/ros/Desktop:rw \
+        henry2423/ros-vnc-ubuntu:kinetic
+
 
 ## Contributors
 
