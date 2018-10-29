@@ -13,13 +13,20 @@ RUN apt-get update && \
 # Configure user
 ARG user=ros
 ARG passwd=ros
+ARG uid=1000
+ARG gid=1000
 ENV USER=$user
 ENV PASSWD=$passwd
+ENV UID=$uid
+ENV GID=$gid
 RUN groupadd $USER && \
     useradd --create-home --no-log-init -g $USER $USER && \
     usermod -aG sudo $USER && \
     echo "$PASSWD:$PASSWD" | chpasswd && \
-    chsh -s /bin/bash $USER
+    chsh -s /bin/bash $USER && \
+    # Replace 1000 with your user/group id
+    usermod  --uid $UID $USER && \
+    groupmod --gid $GID $USER
 
 ### Install VScode
 RUN curl https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor > microsoft.gpg && \
