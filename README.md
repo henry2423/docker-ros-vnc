@@ -77,12 +77,12 @@ the docker run command:
     docker run -it -p 5901:5901 -p 6901:6901 -e VNC_RESOLUTION=800x600 henry2423/ros-vnc-ubuntu:kinetic
 
 ### 3) Mounting local directory to conatiner
-You should run with following environment variable in order to mapping same UID, GID with container, and retrieve R/W permission in container:
+You should run with following environment variable in order to mapping host user/group with container, and retrieve R/W permission of mounting directory in container (Note: after running this command, the user account in container will be same as host account):
 
       docker run -it -p 5901:5901 \
         --user $(id -u):$(id -g) \
-        --env "UID=`id -u $who`" \
-        --env "GID=`id -g $who`" \
+        --volume /etc/passwd:/etc/passwd \
+        --volume /etc/group:/etc/group \
         --volume /home/ros/Desktop:/home/ros/Desktop:rw \
         henry2423/ros-vnc-ubuntu:kinetic
 
