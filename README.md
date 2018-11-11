@@ -83,6 +83,7 @@ You should run with following environment variable in order to mapping host user
         --user $(id -u):$(id -g) \
         --volume /etc/passwd:/etc/passwd \
         --volume /etc/group:/etc/group \
+        --volume /etc/shadow:/etc/shadow \
         --volume /home/ros/Desktop:/home/ros/Desktop:rw \
         henry2423/ros-vnc-ubuntu:kinetic
 
