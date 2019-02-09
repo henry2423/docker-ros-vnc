@@ -87,6 +87,18 @@ You should run with following environment variable in order to mapping host user
         --volume /home/ros/Desktop:/home/ros/Desktop:rw \
         henry2423/ros-vnc-ubuntu:kinetic
 
+### 4) Connecting jupyter notebook within container
+- Run command with mapping to local port `8888` (jupyter protocol) and `8888` (host web access):
+
+      docker run -d -p 8888:8888 henry2423/ros-vnc-ubuntu:kinetic
+
+- Check your local IP within container using `` $ifconfig``, then you can start up jupyter notebook in container with following command: 
+
+      jupyter notebook --ip={YOUR CONTAINER IP} --port=8888 --allow-root
+
+- After start up the jupyter kernel, you can access the notebook from host browser through HTTP service.
+
+      http://localhost:8888/
 
 ## Contributors
 
